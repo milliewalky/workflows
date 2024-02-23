@@ -1,0 +1,41 @@
+name: build and pack ue
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: checkout @ master
+      uses: actions/checkout@v3
+      with:
+        ref: master
+
+    - name: get sha
+      id: sha_from_git
+      shell: cmd
+      run: echo "sha_value=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+    - name: get branch
+      id: branch_from_git
+      shell: cmd
+      run: echo "branch_value=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_OUTPUT
+
+    - name: build
+      shell: cmd
+      run: |
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+        call build.bat sample || exit /b 1
+
+    - name: add build artifacts to an archive
+      uses: edgarrc/action-7z@v1
+      with:
+        args: 7z a -t7z -mx=9 ${{ steps.branch_from_git.outputs.branch_value }}-${{ steps.sha_from_git.outputs.sha_value }}.7z .\build\
+
+    - name: push 7z to gh
+      uses: actions/upload-artifact@v3
+      with:
+        name: sample
+        path: ${{ steps.branch_from_git.outputs.branch_value }}-${{ steps.sha_from_git.outputs.sha_value }}.7z
