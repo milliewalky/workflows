@@ -27,13 +27,36 @@ jobs:
         for /f %%a in ('git rev-parse --abbrev-ref HEAD') do set v=%%a
         echo branch_value=%v%>> %GITHUB_OUTPUT%
 
-    - name: build
+    - name: build debug
       shell: cmd
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-        call build.bat sample || exit /b 1
+        call build.bat sample msvc debug || exit /b 1
 
-    - name: pack artifact into an archive and push to gh
+    - name: `build` -> `debug`, mkdir `build` and `xcopy`
+      shell: cmd
+      run: |
+        ren build debug
+        mkdir build
+        move debug build
+
+    - name: build release
+      shell: cmd
+      run: |
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+        call build.bat sample msvc release || exit /b 1
+
+    - name: tidy up build dir
+      shell: cmd
+      run: |
+        pushd build
+        for /r %%a in (*) do (
+          if /I "%%~xa" neq ".exe" if /I "%%~xa" neq ".pdb" (
+          del "%%F"
+        )
+        popd
+
+    - name: pack artifacts into an archive and push to gh
       uses: actions/upload-artifact@v4
       with:
         name: sample-windows-x86_64-${{ steps.branch_from_git.outputs.branch_value }}-${{ steps.sha_from_git.outputs.sha_value }}

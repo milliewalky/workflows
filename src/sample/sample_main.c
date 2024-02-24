@@ -32,7 +32,7 @@ struct String8
 };
 
 #define STB_SPRINTF_IMPLEMENTATION
-#include "third_party/stb_sprintf.h"
+#include "third_party/stb/stb_sprintf.h"
 
 function String8
 Str8(U8 *str, U64 size)
