@@ -48,14 +48,7 @@ jobs:
 
     - name: tidy up build dir
       shell: cmd
-      run: |
-        pushd build
-          for /r %%a in (*) do (
-            if /I "%%~xa" neq ".exe" if /I "%%~xa" neq ".pdb" (
-              del "%%a"
-            )
-          )
-        popd
+      run: for /r %%a in (build) do if /I "%%~xa" neq ".exe" if /I "%%~xa" neq ".pdb" del "%%a"
 
     - name: pack artifacts into an archive and push to gh
       uses: actions/upload-artifact@v4
