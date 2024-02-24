@@ -33,7 +33,7 @@ jobs:
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
         call build.bat sample msvc debug || exit /b 1
 
-    - name: `build` -> `debug`, mkdir `build` and `xcopy`
+    - name: build -> debug, mkdir build and move
       shell: cmd
       run: |
         ren build debug

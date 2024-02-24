@@ -3,14 +3,17 @@ setlocal
 cd /D "%~dp0"
 
 :: --- Unpack Arguments -------------------------------------------------------
-for %%a in (%*) do set "%%a=1"
-if not "%msvc%"=="1" if not "%clang%"=="1" set msvc=1
-if not "%release%"=="1" set debug=1
-if "%debug%"=="1"   set release=0 && echo [debug mode]
-if "%release%"=="1" set debug=0 && echo [release mode]
-if "%msvc%"=="1"    set clang=0 && echo [msvc compile]
-if "%clang%"=="1"   set msvc=0 && echo [clang compile]
-if "%~1"==""        echo [default mode, assuming `sample` build] && set sample=1
+for %%a in (%*) do      set "%%a=1"
+
+if not "%msvc%"=="1"    if not "%clang%"=="1" set msvc= 1
+if not "%release%"=="1"                       set debug=1
+
+if "%debug%"=="1"       set release=0 && echo [debug mode]
+if "%release%"=="1"     set debug=  0 && echo [release mode]
+if "%msvc%"=="1"        set clang=  0 && echo [msvc compile]
+if "%clang%"=="1"       set msvc=   0 && echo [clang compile]
+
+if "%~1"==""            echo [default mode, assuming `sample` build] && set sample=1
 
 :: --- Compile/Link Line Definitions ------------------------------------------
 set cl_common=     /I..\src\ /I..\local\ /nologo /FC /Z7
@@ -27,20 +30,20 @@ set clang_out=     -o
 :: --- Per-Build Settings -----------------------------------------------------
 if "%msvc%"=="1"  set only_compile=/c
 if "%clang%"=="1" set only_compile=-c
-if "%msvc%"=="1"  set EHsc=/EHsc
+if "%msvc%"=="1"  set EHsc=        /EHsc
 if "%clang%"=="1" set EHsc=
 
 :: --- Choose Compile/Link Lines ----------------------------------------------
-if "%msvc%"=="1"      set compile_debug=%cl_debug%
+if "%msvc%"=="1"      set compile_debug=  %cl_debug%
 if "%msvc%"=="1"      set compile_release=%cl_release%
-if "%msvc%"=="1"      set compile_link=%cl_link%
-if "%msvc%"=="1"      set out=%cl_out%
-if "%clang%"=="1"     set compile_debug=%clang_debug%
+if "%msvc%"=="1"      set compile_link=   %cl_link%
+if "%msvc%"=="1"      set out=            %cl_out%
+if "%clang%"=="1"     set compile_debug=  %clang_debug%
 if "%clang%"=="1"     set compile_release=%clang_release%
-if "%clang%"=="1"     set compile_link=%clang_link%
-if "%clang%"=="1"     set out=%clang_out%
-if "%debug%"=="1"     set compile=%compile_debug%
-if "%release%"=="1"   set compile=%compile_release%
+if "%clang%"=="1"     set compile_link=   %clang_link%
+if "%clang%"=="1"     set out=            %clang_out%
+if "%debug%"=="1"     set compile=        %compile_debug%
+if "%release%"=="1"   set compile=        %compile_release%
 
 :: --- Prep Directories -------------------------------------------------------
 if not exist build mkdir build
