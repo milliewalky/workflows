@@ -50,10 +50,11 @@ jobs:
       shell: cmd
       run: |
         pushd build
-        for /r %%a in (*) do (
-          if /I "%%~xa" neq ".exe" if /I "%%~xa" neq ".pdb" (
-          del "%%a"
-        )
+          for /r %%a in (*) do (
+            if /I "%%~xa" neq ".exe" if /I "%%~xa" neq ".pdb" (
+              del "%%a"
+            )
+          )
         popd
 
     - name: pack artifacts into an archive and push to gh
