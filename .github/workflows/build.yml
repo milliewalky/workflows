@@ -52,7 +52,7 @@ jobs:
         pushd build
         for /r %%a in (*) do (
           if /I "%%~xa" neq ".exe" if /I "%%~xa" neq ".pdb" (
-          del "%%F"
+          del "%%a"
         )
         popd
 
