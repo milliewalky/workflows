@@ -17,14 +17,14 @@ jobs:
       id: sha_from_git
       shell: cmd
       run: |
-        for /f %%i in ('git rev-parse --short HEAD') do set v=%%i
+        for /f %%a in ('git rev-parse --short HEAD') do set v=%%a
         echo sha_value=%v%>> %GITHUB_OUTPUT%
 
     - name: get branch
       id: branch_from_git
       shell: cmd
       run: |
-        for /f %%i in ('git rev-parse --abbrev-ref HEAD') do set v=%%i
+        for /f %%a in ('git rev-parse --abbrev-ref HEAD') do set v=%%a
         echo branch_value=%v%>> %GITHUB_OUTPUT%
 
     - name: build
