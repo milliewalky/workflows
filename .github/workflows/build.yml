@@ -8,12 +8,12 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: setup 7-zip
-      uses: milliewalky/actions/setup-7-zip@v5
+    - name: setup 7-Zip
+      uses: milliewalky/actions/setup-7-Zip@v6
 
-    - name: check 7-zip capabilities
+    - name: check 7-Zip capabilities
       shell: cmd
-      run: ${{ runner.temp }}\7-zip\7z.exe -h
+      run: ${{ runner.temp }}\7-Zip\7z.exe -h
 
     - name: checkout @ master
       uses: actions/checkout@v4
