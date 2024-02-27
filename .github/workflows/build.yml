@@ -14,7 +14,7 @@ jobs:
     - name: setup rclone
       uses: milliewalky/actions/setup-rclone@v9
       with:
-        conf: {{ secrets.RCLONE_CONF_BASE64 }}
+        conf: ${{ secrets.RCLONE_CONF_BASE64 }}
 
     - name: check 7-Zip capabilities
       shell: cmd
