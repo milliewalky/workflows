@@ -11,18 +11,18 @@ jobs:
     - name: setup 7-Zip
       uses: milliewalky/actions/setup-7-zip@v16
 
-    - name: check 7-Zip capabilities
+    - name: where 7-Zip
       shell: cmd
-      run: 7z -h
+      run: where 7z
 
     - name: setup rclone
       uses: milliewalky/actions/setup-rclone@v16
       with:
         conf: ${{ secrets.RCLONE_CONF_BASE64 }}
 
-    - name: check rclone capabilities
+    - name: where rclone
       shell: cmd
-      run: rclone -h
+      run: where rclone
 
     - name: checkout @ ${{ github.ref_name }}
       uses: actions/checkout@v4
