@@ -18,7 +18,7 @@ jobs:
 
     - name: check cwd
       shell: cmd
-      run: echo %cd%
+      run: echo "%cd%"
 
     - name: peek up 7-zip help
       shell: cmd
