@@ -22,7 +22,7 @@ jobs:
 
     - name: peek up 7-zip help
       shell: cmd
-      run: %cd%\7-zip\7z.exe -h
+      run: "%cd%\7-zip\7z.exe" -h
 
     - name: get sha
       id: sha_from_git
