@@ -14,7 +14,7 @@ jobs:
         ref: master
 
     - name: setup 7-zip
-      uses: milliewalky@actions/setup-7-zip@v1
+      uses: milliewalky/actions/setup-7-zip@v1
 
     - name: get sha
       id: sha_from_git
