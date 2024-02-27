@@ -20,13 +20,16 @@ jobs:
       with:
         conf: ${{ secrets.RCLONE_CONF_BASE64 }}
 
+    - name: dir
+      shell: cmd
+      run: |
+        dir "D:\a\_temp\"
+        dir "D:\a\_temp\7-Zip"
+        dir "D:\a\_temp\rclone"
+
     - name: check rclone capabilities
       shell: cmd
       run: rclone -h
-
-    - name: check rclone lsf
-      shell: cmd
-      run: rclone lsf dropbox:mm&m
 
     - name: checkout @ master
       uses: actions/checkout@v4
