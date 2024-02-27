@@ -13,6 +13,9 @@ jobs:
       with:
         ref: master
 
+    - name: setup 7-zip
+      uses: milliewalky/actions/setup-7-zip
+
     - name: get sha
       id: sha_from_git
       shell: cmd
