@@ -13,16 +13,14 @@ jobs:
       with:
         ref: master
 
-    - name: setup 7 zip
+    - name: setup 7-zip
       uses: milliewalky/actions/setup-7-zip@v1
 
     - name: check cwd
       shell: cmd
-      run: call echo "%cd%"
-
-    - name: peek up 7 zip help
-      shell: cmd
-      run: call "%cd%\\7-zip\\7z.exe" -h
+      run: |
+        echo %cd%
+        dir %cd%\\7-zip
 
     - name: get sha
       id: sha_from_git
