@@ -9,14 +9,14 @@ jobs:
 
     steps:
     - name: setup 7-Zip
-      uses: milliewalky/actions/setup-7-zip@v12
+      uses: milliewalky/actions/setup-7-zip@v13
 
     - name: check 7-Zip capabilities
       shell: cmd
       run: 7z -h
 
     - name: setup rclone
-      uses: milliewalky/actions/setup-rclone@v12
+      uses: milliewalky/actions/setup-rclone@v13
       with:
         conf: ${{ secrets.RCLONE_CONF_BASE64 }}
 
