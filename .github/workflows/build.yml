@@ -11,14 +11,22 @@ jobs:
     - name: setup 7-Zip
       uses: milliewalky/actions/setup-7-zip@v11
 
+    - name: check 7-Zip capabilities
+      shell: cmd
+      run: 7z -h
+
     - name: setup rclone
       uses: milliewalky/actions/setup-rclone@v11
       with:
         conf: ${{ secrets.RCLONE_CONF_BASE64 }}
 
-    - name: check 7-Zip capabilities
+    - name: check rclone capabilities
       shell: cmd
-      run: 7z -h
+      run: rclone -h
+
+    - name: check rclone lsf
+      shell: cmd
+      run: rclone lsf dropbox:mm&m
 
     - name: checkout @ master
       uses: actions/checkout@v4
