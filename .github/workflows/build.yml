@@ -16,10 +16,6 @@ jobs:
     - name: setup 7-zip
       uses: milliewalky/actions/setup-7-zip@v1
 
-    - name: check cwd
-      shell: cmd
-      run: echo "%cd%"
-
     - name: peek up 7-zip help
       shell: cmd
       run: "%cd%\\7-zip\\7z.exe" -h
