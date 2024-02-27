@@ -21,6 +21,7 @@ jobs:
       run: |
         echo %cd%
         dir %cd%
+        dir %cd%\..
 
     - name: get sha
       id: sha_from_git
