@@ -16,9 +16,13 @@ jobs:
       with:
         conf: ${{ secrets.RCLONE_CONF_BASE64 }}
 
-    - name: print PATH
-      shell: pwsh
-      run: $Env:Path.Split(";")
+    - name: check 7-Zip capabilities
+      shell: cmd
+      run: 7z -h
+
+    - name: check rclone capabilities
+      shell: cmd
+      run: rclone -h
 
     - name: checkout @ ${{ github.ref_name }}
       uses: actions/checkout@v4
