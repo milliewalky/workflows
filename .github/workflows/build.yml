@@ -17,8 +17,8 @@ jobs:
         conf: ${{ secrets.RCLONE_CONF_BASE64 }}
 
     - name: print PATH
-      shell: cmd
-      run: echo %PATH%
+      shell: pwsh
+      run: $Env:Path.Split(";")
 
     - name: checkout @ ${{ github.ref_name }}
       uses: actions/checkout@v4
