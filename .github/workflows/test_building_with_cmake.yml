@@ -1,0 +1,48 @@
+name: test building with cmake
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: setup Vulkan
+      uses: milliewalky/setup-vulkan@v1
+
+    - name: setup 7-Zip
+      uses: milliewalky/setup-7-zip@v1
+
+    - name: setup CMake
+      uses: milliewalky/setup-cmake@v1
+
+    - name: clone
+      shell: cmd
+      run: |
+        git clone --recursive https://github.com/Sand3r-/cubana.git cubana
+        git clone --recursive https://github.com/DziubanMaciej/cmag.git cmag
+
+    - name: build cubana
+      shell: cmd
+      run: |
+        pushd cubana
+
+        if exist build rmdir /s /q build
+        mkdir build
+        cmake -S . -B build
+        cmake --build build --config Release
+
+        popd
+
+    - name: build cmag
+      shell: cmd
+      run: |
+        pushd cmag
+
+        if exist build rmdir /s /q build
+        mkdir build
+        cmake -S . -B build
+        cmake --build build --config Release
+
+        popd

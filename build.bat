@@ -30,7 +30,7 @@ set clang_out=    -o
 :: --- Per-Build Settings -----------------------------------------------------
 if "%msvc%"=="1"  set only_compile=/c
 if "%clang%"=="1" set only_compile=-c
-if "%msvc%"=="1"  set EHsc=        /EHsc
+if "%msvc%"=="1"  set EHsc=/EHsc
 if "%clang%"=="1" set EHsc=
 
 :: --- Choose Compile/Link Lines ----------------------------------------------
